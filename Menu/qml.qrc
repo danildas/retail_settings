@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>GroupWindow.qml</file>
+        <file>TitleBar.qml</file>
+        <file>SubgroupWindow.qml</file>
+        <file>ItemWindow.qml</file>
+        <file>StatusBar.qml</file>
+        <file>MessageBox.qml</file>
+        <file>CashWindow.qml</file>
+        <file>POS_FunctionButton.qml</file>
+    </qresource>
+</RCC>

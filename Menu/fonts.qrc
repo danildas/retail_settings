@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fonts/aileron/Aileron-Thin.otf</file>
+    </qresource>
+</RCC>
