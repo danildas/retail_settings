@@ -44,7 +44,7 @@ void GroupMaster::refresh()
 
 bool GroupMaster::save(const QString &GroupCode, const QString &GroupName)
 {
-    QSqlQuery query;
+   QSqlQuery query;
     query.prepare("INSERT INTO 'GROUP' (Code, Name) VALUES (:GroupCode,:GroupName)");
             query.bindValue(":GroupCode",GroupCode);
             query.bindValue(":GroupName",GroupName);

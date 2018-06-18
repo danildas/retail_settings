@@ -306,7 +306,7 @@ Item {
                 anchors.rightMargin: 10
                 anchors.topMargin: idRectangle3.height / 5
                 text: "Delete"
-                onClicked: idMessageBox.visible=true
+                onClicked:  idMessageBox.visible=true
             }
 
             POS_FunctionButton {
@@ -327,7 +327,9 @@ Item {
                     idTxtFieldItemName.readOnly = false
                     idTxtFieldItemPrice.readOnly = false
 
+                    _itemMaster.refresh2()
                     idTxtFieldItemCode.text =  _itemMaster.data(_itemMaster.index(idlistView1.currentIndex,0),257)
+                    _itemMaster.getItem(_itemMaster.data(_itemMaster.index(idlistView1.currentIndex,0),257));
                     idTxtFieldItemName.text =  _itemMaster.data(_itemMaster.index(idlistView1.currentIndex,0),258)
                     idTxtFieldItemPrice.text = _itemMaster.itemPrice
                 }
@@ -463,6 +465,12 @@ Item {
                 _itemMaster.deleteItem();
                 _itemMaster.refresh2();
                 idMessageBox.visible=false;
+
+                idTxtFieldItemCode.text = ""
+                idTxtFieldItemName.text = ""
+                idTxtFieldItemPrice.text = ""
+                idSaveButton.visible = true
+                idUpdateButton.visible = false
         }
         }
 

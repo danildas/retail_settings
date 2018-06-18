@@ -51,9 +51,9 @@ void ItemMaster::refresh2()
     qDebug() <<"refresh2 subgroup code" << m_subGroupCode;
 }
 
-bool ItemMaster::saveItem(const QString &ItemCode, const QString &ItemName,const int &Price)
+bool ItemMaster::saveItem(const QString &ItemCode, const QString &ItemName,const qreal &Price)
 {
-    int cost;
+    qreal cost;
     qDebug() << "saveItemUnits invoked" ;
     QSqlQuery query1;
     qDebug() << query1.exec("SELECT CashUnit FROM 'CASHCENTRE'");
@@ -197,7 +197,7 @@ bool ItemMaster::deleteItem()
 
 bool ItemMaster::getItem(QString itemCode)
 {
-    int cost,itemPrice;
+    qreal cost,itemPrice;
     QSqlQuery query;
    // qDebug() << query.exec("SELECT Price FROM 'ITEM_UNITS' WHERE ItemCode = '"+itemCode+"'");
     qDebug() << query.exec("SELECT Price FROM 'ITEM' WHERE Code = '"+ itemCode +"'");
@@ -210,16 +210,15 @@ bool ItemMaster::getItem(QString itemCode)
     cost =query1.value(0).toInt();
     qDebug() << cost;
 
-    setItemPrice( QString::number(itemPrice/cost) );
+    setItemPrice(itemPrice/cost);
 
     qDebug() << m_itemPrice;
 }
 
-bool ItemMaster::updateItem(QString itemCode,QString itemNewName, int itemNewPrice)
+bool ItemMaster::updateItem(QString itemCode,QString itemNewName, qreal itemNewPrice)
 {
     qDebug() <<itemCode <<itemNewName <<itemNewPrice;
-
-    int cost;
+    qreal cost;
     qDebug() << "saveItemUnits invoked" ;
     QSqlQuery query1;
     qDebug() << query1.exec("SELECT CashUnit FROM 'CASHCENTRE'");
@@ -234,11 +233,11 @@ bool ItemMaster::updateItem(QString itemCode,QString itemNewName, int itemNewPri
 
 }
 
-QString ItemMaster:: itemPrice()
+qreal ItemMaster:: itemPrice()
 {
    return m_itemPrice;
 }
-void ItemMaster:: setItemPrice(QString itemPrice)
+void ItemMaster:: setItemPrice(qreal itemPrice)
 {
     if( itemPrice!= m_itemPrice )
     {

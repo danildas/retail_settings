@@ -13,7 +13,7 @@ class ItemMaster:public QSqlQueryModel
     Q_PROPERTY(QString subGroupCode READ subGroupCode WRITE setSubGroupCode NOTIFY subGroupCodeChanged)
     Q_PROPERTY(QString itemCodeDel READ itemCodeDel WRITE setItemCodeDel NOTIFY itemCodeDelChanged)
 
-    Q_PROPERTY(QString itemPrice READ itemPrice WRITE setItemPrice NOTIFY itemPriceChanged)
+    Q_PROPERTY(qreal itemPrice READ itemPrice WRITE setItemPrice NOTIFY itemPriceChanged)
 
 public:
 
@@ -32,8 +32,8 @@ public:
     QString itemCodeDel();
     void setItemCodeDel(const QString &itemCodeDel);
 
-    QString itemPrice();
-    void setItemPrice(QString itemPrice);
+    qreal itemPrice();
+    void setItemPrice(qreal itemPrice);
 
 signals:
 
@@ -52,21 +52,21 @@ protected:
 
 public slots:
    Q_INVOKABLE void refresh2();
-   Q_INVOKABLE bool saveItem(const QString &ItemCode, const QString &ItemName,const int &Price);
+   Q_INVOKABLE bool saveItem(const QString &ItemCode, const QString &ItemName,const qreal &Price);
    Q_INVOKABLE bool saveItemUnits(const QString &ItemCode,const QString &ItemUnitCode,const QString &ItemUnitName,const int &Price);
    Q_INVOKABLE bool saveItemUnits(const QString &ItemCode,const int &Price);
    Q_INVOKABLE bool saveItemImage(QString ImageUrl, const QString &ItemCode);
    Q_INVOKABLE bool openItemImage();
    Q_INVOKABLE bool deleteItem();
    Q_INVOKABLE bool getItem(QString itemCode);
-   Q_INVOKABLE bool updateItem(QString itemCode, QString itemNewName, int itemNewPrice);
+   Q_INVOKABLE bool updateItem(QString itemCode, QString itemNewName, qreal itemNewPrice);
 
 private:
 
     QString m_groupCode;
     QString m_subGroupCode;
     QString m_itemCodeDel;
-    QString m_itemPrice;
+    qreal m_itemPrice;
 };
 
 #endif // ITEMMASTER_H
