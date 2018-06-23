@@ -52,9 +52,9 @@ protected:
 
 public slots:
    Q_INVOKABLE void refresh2();
-   Q_INVOKABLE bool saveItem(const QString &ItemCode, const QString &ItemName,const qreal &Price);
+   Q_INVOKABLE bool saveItem(const QString &ItemCode, const QString &ItemName);
    Q_INVOKABLE bool saveItemUnits(const QString &ItemCode,const QString &ItemUnitCode,const QString &ItemUnitName,const int &Price);
-   Q_INVOKABLE bool saveItemUnits(const QString &ItemCode,const int &Price);
+   Q_INVOKABLE bool saveItemUnits(const QString &ItemCode,const qreal &Price);
    Q_INVOKABLE bool saveItemImage(QString ImageUrl, const QString &ItemCode);
    Q_INVOKABLE bool openItemImage();
    Q_INVOKABLE bool deleteItem();

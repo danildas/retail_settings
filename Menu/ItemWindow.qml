@@ -348,7 +348,8 @@ Item {
                 onClicked: {
                     if(idTxtFieldItemCode.text!="" && idTxtFieldItemName.text!="") {
                     console.log("Save")
-                    console.log(_itemMaster.saveItem(idTxtFieldItemCode.text,idTxtFieldItemName.text,idTxtFieldItemPrice.text));
+                    console.log(_itemMaster.saveItem(idTxtFieldItemCode.text,idTxtFieldItemName.text));
+                    console.log(_itemMaster.saveItemUnits(idTxtFieldItemCode.text,idTxtFieldItemPrice.text));
 
                    /* if (idComboBoxDetails.currentText == "Yes")
                     {

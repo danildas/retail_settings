@@ -51,25 +51,14 @@ void ItemMaster::refresh2()
     qDebug() <<"refresh2 subgroup code" << m_subGroupCode;
 }
 
-bool ItemMaster::saveItem(const QString &ItemCode, const QString &ItemName,const qreal &Price)
+bool ItemMaster::saveItem(const QString &ItemCode, const QString &ItemName)
 {
-    qreal cost;
-    qDebug() << "saveItemUnits invoked" ;
-    QSqlQuery query1;
-    qDebug() << query1.exec("SELECT CashUnit FROM 'CASHCENTRE'");
-    qDebug() << query1.next();
-    cost = query1.value(0).toInt();
-    qDebug() << cost;
-    cost = cost * Price;
-    qDebug() << cost;
-
     QSqlQuery query;
-    query.prepare("INSERT INTO 'ITEM' (Code,Name,GroupCode,SubGroupCode,Price) VALUES (:code, :name, :groupCode, :subGroupCode, :price)");
+    query.prepare("INSERT INTO 'ITEM' (Code,Name,GroupCode,SubGroupCode) VALUES (:code, :name, :groupCode, :subGroupCode)");
                    query.bindValue(":code",ItemCode);
                    query.bindValue(":name",ItemName);
                    query.bindValue(":groupCode",m_groupCode);
                    query.bindValue(":subGroupCode",m_subGroupCode);
-                   query.bindValue(":price",cost);
 
      if(!query.exec())
      {
@@ -112,19 +101,19 @@ bool ItemMaster::saveItemUnits(const QString &ItemCode,const QString &ItemUnitCo
     return false;
 }
 
-bool ItemMaster::saveItemUnits(const QString &ItemCode,const int &Price)
+bool ItemMaster::saveItemUnits(const QString &ItemCode,const qreal &Price)
 {
-    int cost;
-    qDebug() << "saveItemUnits invoked1" ;
+    qreal cost;
+    qDebug() << "saveItemUnits invoked" ;
     QSqlQuery query1;
     qDebug() << query1.exec("SELECT CashUnit FROM 'CASHCENTRE'");
     qDebug() << query1.next();
-    cost =query1.value(0).toInt();
+    cost = query1.value(0).toInt();
     qDebug() << cost;
-    cost=cost*Price;
+    cost = cost * Price;
     qDebug() << cost;
-    QSqlQuery query;
 
+    QSqlQuery query;
     query.prepare("INSERT INTO 'ITEM_UNITS' (ItemCode,UnitCode,Name,Price) VALUES(:itemCode,'2','Full',:price)");
                     query.bindValue(":itemCode",ItemCode);
                     query.bindValue(":price",cost);
@@ -135,6 +124,7 @@ bool ItemMaster::saveItemUnits(const QString &ItemCode,const int &Price)
         qDebug() << query.lastError().text();
         return false;
     } else {
+
         return true;
     }
     return false;
@@ -188,8 +178,8 @@ bool ItemMaster::deleteItem()
     QString query0 = ("DELETE FROM 'ITEM' WHERE Code= '" + m_itemCodeDel + "'");
     this->setQuery(query0);
 
-//    QString query1 = ("DELETE FROM 'ITEM_UNITS' WHERE ItemCode= '" + m_itemCodeDel + "' ");
-//    this->setQuery(query1);
+    QString query1 = ("DELETE FROM 'ITEM_UNITS' WHERE ItemCode= '" + m_itemCodeDel + "' ");
+    this->setQuery(query1);
 
 //    QString query2 = ("DELETE FROM 'ITEM_IMAGE' WHERE ItemCode='" + m_itemCodeDel + "' ");
 //    this->setQuery(query2);
@@ -199,8 +189,7 @@ bool ItemMaster::getItem(QString itemCode)
 {
     qreal cost,itemPrice;
     QSqlQuery query;
-   // qDebug() << query.exec("SELECT Price FROM 'ITEM_UNITS' WHERE ItemCode = '"+itemCode+"'");
-    qDebug() << query.exec("SELECT Price FROM 'ITEM' WHERE Code = '"+ itemCode +"'");
+    qDebug() << query.exec("SELECT Price FROM 'ITEM_UNITS' WHERE ItemCode = '"+itemCode+"'");
     qDebug() << query.next();
     itemPrice = query.value(0).toInt();
 
@@ -228,9 +217,11 @@ bool ItemMaster::updateItem(QString itemCode,QString itemNewName, qreal itemNewP
     cost = cost * itemNewPrice;
     qDebug() << cost;
 
-    QString query =("UPDATE 'ITEM' SET Name = '" + itemNewName + "',Price ='"+ QString::number(cost) +"' WHERE Code = '" + itemCode + "'");
+    QString query =("UPDATE 'ITEM' SET Name = '" + itemNewName + "' WHERE Code = '" + itemCode + "'");
     this->setQuery(query);
 
+    QString query2 =("UPDATE 'ITEM_UNITS' SET Price ='"+ QString::number(cost) +"' WHERE ItemCode = '" + itemCode + "'");
+    this->setQuery(query2);
 }
 
 qreal ItemMaster:: itemPrice()
